@@ -1,5 +1,6 @@
 package ir.bamap.blu.adapter.keycloak.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
 
@@ -22,10 +23,12 @@ class OAuthToken(
     val refreshExpiresIn: Long = 0L
 ) {
 
+    @JsonIgnore
     fun isValid(): Boolean {
         val now = Date().time / 1000
         return accessToken != null && expiresIn > now
     }
 
+    @JsonIgnore
     fun getAuthorizationToken(): String = "$tokenType $accessToken"
 }
